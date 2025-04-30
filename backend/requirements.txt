@@ -1,0 +1,7 @@
+opencv-python 
+numpy 
+scikit-learn
+requests
+python-dotenv
+web3 
+py-solc-x
