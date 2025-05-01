@@ -1,0 +1,90 @@
+.upload-page {
+  font-family: Arial, sans-serif;
+  width: 100%;
+  display: flex;
+  justify-content: center; /* Center the content horizontally */
+  align-items: center; /* Center the content vertically */
+}
+
+.upload-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.upload-cards {
+  display: flex;
+  justify-content: center; /* Center the cards horizontally */
+  gap: 400px; /* Add spacing between the cards */
+  flex-wrap: wrap; /* Ensure responsiveness */
+}
+
+.upload-card {
+  font-size: 2rem; /* Increased font size for better visibility */
+  flex: 1;
+  background-color: rgb(0, 215, 253);
+  padding: 30px; /* Increased padding for better spacing */
+  border-radius: 25px; /* Rounded corners for cards */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* Enhanced shadow for better visibility */
+  text-align: center;
+  min-width: 700px; /* Ensure cards have a minimum width */
+  max-width: 450px; /* Set a maximum width for consistency */
+  min-height: 700px; /* Ensure cards are taller */
+}
+
+.upload-card h2 {
+  margin-bottom: 20px;
+  color: #0022fd;
+}
+
+.upload-drag-area {
+  border: 7px dashed #1976d2; /* Dashed border for drag-and-drop area */
+  border-radius: 15px; /* Rounded corners */
+  min-height: 70%;
+  background-color: #07fde0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-align: center;
+}
+
+.upload-drag-area:hover {
+  background-color: #e3f2fd; /* Light blue background on hover */
+}
+
+.upload-drag-area p {
+  margin: 0;
+  font-size: 2rem;
+  color: #555;
+  padding: 100px; /* Added padding for better spacing */
+}
+
+.file-name {
+  margin-top: 10px;
+  font-size: 1rem;
+  color: #333;
+  font-weight: bold;
+}
+
+.upload-form button {
+  margin-top: 90px;
+  padding: 15px 30px; /* Increased padding for better spacing */
+  background-color: rgb(0, 215, 253); /* Primary button color */
+  color: #0022fd;
+  border: none;
+  border-radius: 15px; /* Rounded corners for the button */
+  cursor: pointer;
+  font-size: 2rem; /* Increased font size for better visibility */
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.upload-form button:hover {
+  background-color: #04c4f9; /* Darker shade on hover */
+  transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+.upload-form button:active {
+  background-color: #0d47a1; /* Even darker shade when clicked */
+  transform: scale(0.95); /* Slight shrink effect when clicked */
+}

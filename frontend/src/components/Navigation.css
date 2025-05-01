@@ -1,0 +1,85 @@
+.navigation {
+  position: fixed;
+  top:1%;
+  left:1%;
+  width: 98%;
+  background-color: #2e4062;
+  color: white;
+  border-radius: 25px 25px 25px 25px; /* Increased corner rounding */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Enhanced shadow for better visibility */
+  z-index: 1000;
+  height: 140px; /* Default height */
+  transition: height 0.4s ease; /* Smooth transition for height */
+  overflow: hidden;
+}
+
+.navigation.expanded {
+  height: 340px; /* Height when expanded */
+}
+
+.nav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 50px; /* Increased padding for better spacing */
+}
+
+.nav-logo {
+  font-size: 4rem; /* Increased font size for the logo */
+  font-weight: bold;
+font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.hamburger {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Increased gap between lines */
+}
+
+.hamburger .line {
+  width: 35px; /* Increased width of hamburger lines */
+  height: 5px; /* Increased height of hamburger lines */
+  background-color: #61dafb;
+  border-radius: 3px;
+  transition: background-color 0.3s;
+}
+
+.hamburger:hover .line {
+  background-color: #21a1f1;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  opacity: 0; /* Initially hidden */
+  transform: translateY(-20px); /* Slide up effect */
+  transition: opacity 0.4s ease, transform 0.4s ease; /* Smooth fade and slide */
+}
+
+.nav-links.show {
+  opacity: 1; /* Fully visible */
+  transform: translateY(0); /* Reset slide */
+}
+
+.nav-links li {
+  margin: 15px 0; /* Increased spacing between menu items */
+}
+
+.nav-links a {
+  color: #61dafb;
+  text-decoration: none;
+  font-size: 2rem; /* Increased font size for menu links */
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: #21a1f1;
+}

@@ -1,0 +1,14 @@
+.card-layout {
+    background-color: #2e4062;
+    border-radius: 25px; /* Rounded corners */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow for better visibility */
+    width: 96.5%;
+    margin: 20px auto; /* Center the card horizontally */
+    padding: 20px;
+    overflow: hidden; /* Prevent scrolling inside the card */
+    transition: margin-top 0.4s ease; /* Smooth transition when navbar height changes */
+    display: flex; /* Use flexbox for alignment */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    min-height: calc(100vh - 260px); /* Ensure it fills the remaining space below the navbar */
+}
