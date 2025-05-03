@@ -6,14 +6,8 @@ const Verify: React.FC = () => {
   const [watermarkImage, setWatermarkImage] = useState<File | null>(null);
   const [transactionHash, setTransactionHash] = useState<string>("");
   const [loadingMessage, setLoadingMessage] = useState<string>("");
+  const [verificationResult, setVerificationResult] = useState<string | null>(null);
 
-  const Loader: React.FC<{ message: string }> = ({ message }) => (
-    <div className="loader">
-      <div className="spinner"></div>
-      <p>{message}</p>
-    </div>
-  );
-  
   const handleWatermarkDrop = (acceptedFiles: File[]) => {
     setWatermarkImage(acceptedFiles[0]);
   };
@@ -30,7 +24,7 @@ const Verify: React.FC = () => {
     : `0x${transactionHash}`;
     const formData = new FormData();
     formData.append("watermarked_image", watermarkImage);
-    formData.append("transaction_hash", transactionHash);
+    formData.append("transaction_hash", formattedTransactionHash);
 
     // Connect to WebSocket
     const ws = new WebSocket("ws://127.0.0.1:8000/ws");
@@ -58,13 +52,15 @@ const Verify: React.FC = () => {
   
       const data = await response.json();
       if (data.message) {
-        alert(data.message);
+        setVerificationResult(data.message);
       } else if (data.error) {
-        alert(`Error: ${data.error}`);
+        setVerificationResult(`Error: ${data.error}`); // Set the error in the state
       }
     } catch (error) {
       console.error("Error verifying watermark:", error);
-      alert("Verification failed.");
+      setVerificationResult("Verification failed"); // Set the error in the state
+    }finally {
+      ws.close(); // Close the WebSocket connection
     }
   };
 
@@ -110,6 +106,20 @@ const Verify: React.FC = () => {
             </button>
           </div>
         </form>
+        {loadingMessage && (
+          <div className="loader-container">
+            <div className="spinner"></div>
+            <p className="loader-message">{loadingMessage}</p>
+          </div>
+        )}
+
+        {/* Verification Result */}
+        {verificationResult && (
+          <div className="verification-result">
+            <h3>Verification Result</h3>
+            <p>{verificationResult}</p>
+          </div>
+        )}
       </main>
     </div>
   );

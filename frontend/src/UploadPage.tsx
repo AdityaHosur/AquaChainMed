@@ -8,7 +8,7 @@ const UploadPage: React.FC = () => {
   const [watermarkedImage, setWatermarkedImage] = useState<string | null>(null);
   const [watermarkIpfsHash, setWatermarkIpfsHash] = useState<string | null>(null);
   const [blockchainTxHash, setBlockchainTxHash] = useState<string | null>(null);
-
+  const [loadingMessage, setLoadingMessage] = useState<string>("");
   const handleMedicalDrop = (acceptedFiles: File[]) => {
     setMedicalImage(acceptedFiles[0]);
   };
@@ -29,6 +29,28 @@ const UploadPage: React.FC = () => {
     formData.append("medical_image", medicalImage);
     formData.append("watermark_image", watermarkImage);
 
+    const ws = new WebSocket("ws://127.0.0.1:8000/ws");
+    ws.onopen = () => {
+      console.log("WebSocket connection established for watermarking");
+      setLoadingMessage("Starting watermarking process...");
+      ws.send("start_watermarking"); // Notify backend to start the process
+    };
+
+    ws.onmessage = (event) => {
+      console.log("WebSocket message received:", event.data);
+      setLoadingMessage(event.data); // Update the loading message
+    };
+
+    ws.onclose = () => {
+      console.log("WebSocket connection closed");
+      setLoadingMessage("");
+    };
+
+    ws.onerror = (error) => {
+      console.error("WebSocket error:", error);
+      alert("An error occurred during the watermarking process.");
+    };
+
     try {
       const response = await fetch("http://127.0.0.1:8000/api/watermark", {
         method: "POST",
@@ -40,13 +62,14 @@ const UploadPage: React.FC = () => {
         setWatermarkedImage(`data:image/png;base64,${data.watermarked_image}`);
         setWatermarkIpfsHash(data.watermark_ipfs_hash);
         setBlockchainTxHash(data.blockchain_tx_hash);
-        alert("Watermarking successful!");
       } else {
         alert("Watermarking failed.");
       }
     } catch (error) {
       console.error("Error uploading:", error);
       alert("Upload failed.");
+    }finally {
+      ws.close(); // Close the WebSocket connection
     }
   };
 
@@ -100,7 +123,12 @@ const UploadPage: React.FC = () => {
 
           <button type="submit">Upload & Watermark</button>
         </form>
-
+        {loadingMessage && (
+          <div className="loader-container">
+            <div className="spinner"></div>
+            <p className="loader-message">{loadingMessage}</p>
+          </div>
+        )}
               {watermarkedImage && (
         <div className="upload-result">
           <h3>Watermarked Image</h3>
