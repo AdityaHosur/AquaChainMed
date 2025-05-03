@@ -6,3 +6,5 @@ python-dotenv
 web3 
 py-solc-x
 pillow
+fastapi 
+uvicorn

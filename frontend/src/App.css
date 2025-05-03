@@ -2,12 +2,12 @@ body {
   margin: auto;
   font-family: Arial, sans-serif;
   background-color: #f2f7fc;
+  overflow-y: scroll;
 }
 
 .App {
   text-align: center;
   margin: auto;
-  overflow: hidden;
 }
 
 .App-main {
@@ -15,5 +15,5 @@ body {
   padding: 20px;
   background-color: #f2f7fc;
   min-height: calc(100vh - 140px); /* Ensure content fills the viewport */
-  overflow: hidden;
+  overflow-y: scroll;
 }

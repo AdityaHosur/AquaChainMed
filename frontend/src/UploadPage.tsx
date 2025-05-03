@@ -5,7 +5,9 @@ import "./UploadPage.css";
 const UploadPage: React.FC = () => {
   const [medicalImage, setMedicalImage] = useState<File | null>(null);
   const [watermarkImage, setWatermarkImage] = useState<File | null>(null);
-  const [ipfsHash, setIpfsHash] = useState<string | null>(null);
+  const [watermarkedImage, setWatermarkedImage] = useState<string | null>(null);
+  const [watermarkIpfsHash, setWatermarkIpfsHash] = useState<string | null>(null);
+  const [blockchainTxHash, setBlockchainTxHash] = useState<string | null>(null);
 
   const handleMedicalDrop = (acceptedFiles: File[]) => {
     setMedicalImage(acceptedFiles[0]);
@@ -28,14 +30,20 @@ const UploadPage: React.FC = () => {
     formData.append("watermark_image", watermarkImage);
 
     try {
-      const response = await fetch("http://localhost:5000/api/watermark", {
+      const response = await fetch("http://127.0.0.1:8000/api/watermark", {
         method: "POST",
         body: formData,
       });
 
       const data = await response.json();
-      setIpfsHash(data.ipfs_hash);
-      alert("Upload successful!");
+      if (data.watermarked_image) {
+        setWatermarkedImage(`data:image/png;base64,${data.watermarked_image}`);
+        setWatermarkIpfsHash(data.watermark_ipfs_hash);
+        setBlockchainTxHash(data.blockchain_tx_hash);
+        alert("Watermarking successful!");
+      } else {
+        alert("Watermarking failed.");
+      }
     } catch (error) {
       console.error("Error uploading:", error);
       alert("Upload failed.");
@@ -93,18 +101,45 @@ const UploadPage: React.FC = () => {
           <button type="submit">Upload & Watermark</button>
         </form>
 
-        {ipfsHash && (
-          <div className="upload-result">
-            <p><strong>IPFS Hash:</strong> {ipfsHash}</p>
+              {watermarkedImage && (
+        <div className="upload-result">
+          <h3>Watermarked Image</h3>
+          <div className="watermarked-image-container">
+            <img src={watermarkedImage} alt="Watermarked" className="watermarked-image" />
+          </div>
+          <p className="ipfs-link">
+            <strong>Watermark IPFS Hash:</strong>{" "}
             <a
-              href={`https://ipfs.io/ipfs/${ipfsHash}`}
+              href={`https://ipfs.io/ipfs/${watermarkIpfsHash}`}
               target="_blank"
               rel="noopener noreferrer"
             >
-              View on IPFS
+              {watermarkIpfsHash}
             </a>
-          </div>
-        )}
+          </p>
+          <p className="blockchain-link">
+              <strong>Blockchain Transaction Hash:</strong>{" "}
+              <a
+                href={`https://sepolia.etherscan.io/tx/0x${blockchainTxHash}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {blockchainTxHash}
+              </a>
+            </p>
+            <button
+            className="download-button"
+            onClick={() => {
+              const link = document.createElement("a");
+              link.href = watermarkedImage;
+              link.download = "watermarked_image.png";
+              link.click();
+            }}
+          >
+            Download Watermarked Image
+          </button>
+        </div>
+      )}
       </main>
     </div>
   );

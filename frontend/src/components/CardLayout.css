@@ -10,5 +10,5 @@
     display: flex; /* Use flexbox for alignment */
     justify-content: center; /* Center content horizontally */
     align-items: center; /* Center content vertically */
-    min-height: calc(100vh - 260px); /* Ensure it fills the remaining space below the navbar */
+    min-height: calc(100vh - 200px); /* Ensure it fills the remaining space below the navbar */
 }

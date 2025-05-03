@@ -7,6 +7,8 @@ interface CardLayoutProps {
 }
 
 const CardLayout: React.FC<CardLayoutProps> = ({ children, isNavbarExpanded }) => {
+  console.log("Navbar expanded:", isNavbarExpanded); // Debug log
+
   return (
     <div
       className="card-layout"

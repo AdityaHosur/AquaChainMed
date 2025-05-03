@@ -18,5 +18,4 @@ def extract_lsb_watermark(watermarked_image_path):
 
     print("Extracted watermark successfully!")
 
-# Example usage:
-extract_lsb_watermark("watermarked_image.png")
+

@@ -20,24 +20,24 @@ with open("contract_abi.json", "r") as file:
 
 contract = w3.eth.contract(address=CONTRACT_ADDRESS, abi=contract_abi)
 
-# IPFS hash to store
-ipfs_hash = "Qman49iyuG7PZb21b3xJbuDYiqCHAVfDH1VnCqo2DDxGdr"  # Replace this with your real IPFS hash
+def store_ipfs_hash_on_blockchain(ipfs_hash: str) -> str:
+    # Prepare transaction
+    nonce = w3.eth.get_transaction_count(ACCOUNT)
+    txn = contract.functions.storeHash(ipfs_hash).build_transaction({
+        "chainId": w3.eth.chain_id,
+        "gas": 200000,
+        "gasPrice": w3.eth.gas_price,
+        "nonce": nonce
+    })
 
-# Prepare transaction
-nonce = w3.eth.get_transaction_count(ACCOUNT)
-txn = contract.functions.storeHash(ipfs_hash).build_transaction({
-    "chainId": w3.eth.chain_id,
-    "gas": 200000,
-    "gasPrice": w3.eth.gas_price,
-    "nonce": nonce
-})
+    # Sign and send transaction
+    signed_txn = w3.eth.account.sign_transaction(txn, private_key=PRIVATE_KEY)
+    tx_hash = w3.eth.send_raw_transaction(signed_txn.raw_transaction)
 
-# Sign and send transaction
-signed_txn = w3.eth.account.sign_transaction(txn, private_key=PRIVATE_KEY)
-tx_hash = w3.eth.send_raw_transaction(signed_txn.raw_transaction)
+    print("Transaction sent. Hash:", tx_hash.hex())
 
-print("Transaction sent. Hash:", tx_hash.hex())
+    # Optional: Wait for confirmation
+    tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
+    print("Transaction confirmed in block:", tx_receipt.blockNumber)
 
-# Optional: Wait for confirmation
-tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
-print("Transaction confirmed in block:", tx_receipt.blockNumber)
+    return tx_hash.hex()

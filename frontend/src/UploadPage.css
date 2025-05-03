@@ -88,3 +88,93 @@
   background-color: #0d47a1; /* Even darker shade when clicked */
   transform: scale(0.95); /* Slight shrink effect when clicked */
 }
+
+.upload-result {
+  margin-top: 40px;
+  text-align: center;
+  background-color: rgb(0, 215, 253);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.upload-result h3 {
+  font-size: 3rem;
+  color: #0022fd;
+  margin-bottom: 20px;
+}
+
+.watermarked-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  border: 2px solid #1976d2;
+  border-radius: 15px;
+  padding: 10px;
+  background-color: rgb(0, 215, 253);
+}
+
+.watermarked-image {
+  max-width: 100%;
+  max-height: 300px;
+  border-radius: 10px;
+}
+
+.ipfs-link {
+  font-size: 1.8rem;
+  color: #333;
+  text-decoration: underline;
+
+}
+
+.ipfs-link a {
+  color: #ff0000;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.ipfs-link a:hover {
+  text-decoration: underline;
+  color: #145ea8;
+}
+
+.blockchain-link {
+  font-size: 2rem;
+  color: #333;
+  margin-top: 10px;
+}
+
+.blockchain-link a {
+  color: #1976d2;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.blockchain-link a:hover {
+  text-decoration: underline;
+  color: #145ea8;
+}
+
+.download-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 2rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.download-button:hover {
+  background-color: #145ea8;
+  transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+.download-button:active {
+  background-color: #0d47a1;
+  transform: scale(0.95); /* Slight shrink effect when clicked */
+}

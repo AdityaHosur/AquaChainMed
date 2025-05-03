@@ -12,9 +12,6 @@ def verify_watermark(downloaded_path, extracted_path):
     difference = np.bitwise_xor(downloaded_arr, extracted_arr)
 
     if np.any(difference):
-        print("Warning: Watermark integrity check FAILED. Possible tampering detected.")
+        return "Warning: Watermark integrity check FAILED. Possible tampering detected."
     else:
-        print("Watermark integrity verified. No tampering detected!")
-
-# Example usage:
-verify_watermark("downloaded_actual_watermark.png", "extracted_watermark.png")
+        return "Watermark integrity verified. No tampering detected!"
